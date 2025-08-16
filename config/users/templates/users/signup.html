@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Register for SecondGoods Hub to buy and sell second-hand goods locally. Join our community for sustainable shopping and great deals.">
+    <meta name="keywords" content="second-hand goods, local marketplace, sustainable shopping, buy sell locally, SecondGoods Hub, register">
     <title>SecondGoods Hub - Register</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -79,7 +81,7 @@
         }
         .helptext {
             color: #7e98bc; /* Gray-600 */
-            font-size: 0.275rem; /* text-sm */
+            font-size: 0.875rem; /* text-sm */
             margin-top: 0.25rem;
         }
     </style>
@@ -87,19 +89,19 @@
 <body class="flex flex-col items-center min-h-screen">
     <!-- Header/Navbar (simple) -->
     <header class="w-full bg-white shadow-sm py-4 px-6 md:px-10">
-    <nav class="container mx-auto flex justify-between items-center">
-        <a href="{% url 'index' %}" class="text-2xl font-bold text-gray-900">SecondGoods Hub</a>
-        <div>
-            <a href="/login" 
-               class="text-green-600 font-semibold px-4 py-2 rounded-md border border-green-600 hover:bg-green-50 transition">
-               Log In
-            </a>
-        </div>
-    </nav>
+        <nav class="container mx-auto flex justify-between items-center">
+            <a href="{% url 'index' %}" class="text-2xl font-bold text-gray-900">SecondGoods Hub</a>
+            <div>
+                <a href="/login" 
+                   class="text-green-600 font-semibold px-4 py-2 rounded-md border border-green-600 hover:bg-green-50 transition">
+                   Log In
+                </a>
+            </div>
+        </nav>
     </header>
 
     <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md my-8">
-        <h2 class="text-3xl font-extrabold text-gray-900 mb-6 text-center">Register for SecondGoods Hub</h2>
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-6 text-center">Register </h2>
 
         {% if messages %}
             <ul class="messages">
@@ -117,7 +119,7 @@
                 <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
                     {{ form.username.label_tag }}
                 </label>
-                {{ form.username }} {# Classes are now applied via forms.py or global style #}
+                {{ form.username }}
                 {% if form.username.errors %}<ul class="errorlist">{% for error in form.username.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
                 {% if form.username.help_text %}<p class="helptext">{{ form.username.help_text }}</p>{% endif %}
             </div>
@@ -127,7 +129,7 @@
                 <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
                     {{ form.first_name.label_tag }}
                 </label>
-                {{ form.first_name }} {# Classes are now applied via forms.py or global style #}
+                {{ form.first_name }}
                 {% if form.first_name.errors %}<ul class="errorlist">{% for error in form.first_name.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
                 {% if form.first_name.help_text %}<p class="helptext">{{ form.first_name.help_text }}</p>{% endif %}
             </div>
@@ -137,7 +139,7 @@
                 <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
                     {{ form.last_name.label_tag }}
                 </label>
-                {{ form.last_name }} {# Classes are now applied via forms.py or global style #}
+                {{ form.last_name }}
                 {% if form.last_name.errors %}<ul class="errorlist">{% for error in form.last_name.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
                 {% if form.last_name.help_text %}<p class="helptext">{{ form.last_name.help_text }}</p>{% endif %}
             </div>
@@ -147,7 +149,7 @@
                 <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
                     {{ form.email.label_tag }}
                 </label>
-                {{ form.email }} {# Classes are now applied via forms.py or global style #}
+                {{ form.email }}
                 {% if form.email.errors %}<ul class="errorlist">{% for error in form.email.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
                 {% if form.email.help_text %}<p class="helptext">{{ form.email.help_text }}</p>{% endif %}
             </div>
@@ -157,35 +159,33 @@
                 <label for="{{ form.phone_number.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
                     {{ form.phone_number.label_tag }}
                 </label>
-                {{ form.phone_number }} {# Classes are now applied via forms.py or global style #}
+                {{ form.phone_number }}
                 {% if form.phone_number.errors %}<ul class="errorlist">{% for error in form.phone_number.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
                 {% if form.phone_number.help_text %}<p class="helptext">{{ form.phone_number.help_text }}</p>{% endif %}
             </div>
 
-            {# Password fields (without help_text as per previous request) #}
+            {# Password fields #}
             <div class="form-group">
                 <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
                     {{ form.password1.label_tag }}
                 </label>
-                {{ form.password1 }} {# Classes are now applied via forms.py or global style #}
+                {{ form.password1 }}
                 {% if form.password1.errors %}<ul class="errorlist">{% for error in form.password1.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
-                
             </div>
 
             <div class="form-group">
                 <label for="{{ form.password2.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
                     {{ form.password2.label_tag }}
                 </label>
-                {{ form.password2 }} {# Classes are now applied via forms.py or global style #}
+                {{ form.password2 }}
                 {% if form.password2.errors %}<ul class="errorlist">{% for error in form.password2.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
-                
             </div>
 
-            {# Checkbox for Terms of Service (added for completeness, style as needed) #}
+            {# Checkbox for Terms of Service #}
             <div class="flex items-center">
                 <input type="checkbox" id="terms" name="terms" required class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded">
                 <label for="terms" class="ml-2 block text-sm text-gray-900 font-normal">
-                    I agree to the <a href="#" class="font-medium text-green-600 hover:text-green-500">Terms of Service</a> and <a href="#" class="font-medium text-green-600 hover:text-green-500">Privacy Policy</a>
+                    I agree to the <a href="/terms" class="font-medium text-green-600 hover:text-green-500">Terms of Service</a> and <a href="/privacy" class="font-medium text-green-600 hover:text-green-500">Privacy Policy</a>
                 </label>
             </div>
 
@@ -199,5 +199,17 @@
             Already have an account? <a href="/login" class="font-medium text-green-600 hover:text-green-500">Log In</a>
         </p>
     </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-8 px-6 md:px-10 w-full" role="contentinfo">
+        <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center text-sm">
+            <p>&copy; 2025 SecondGoods Hub. All rights reserved.</p>
+            <div class="flex space-x-6 mt-4 sm:mt-0">
+                <a href="/privacy" class="text-gray-300 hover:text-green-500 focus:ring-2 focus:ring-green-500 focus:outline-none" aria-label="Privacy Policy">Privacy Policy</a>
+                <a href="/terms" class="text-gray-300 hover:text-green-500 focus:ring-2 focus:ring-green-500 focus:outline-none" aria-label="Terms of Service">Terms of Service</a>
+                <a href="/contact" class="text-gray-300 hover:text-green-500 focus:ring-2 focus:ring-green-500 focus:outline-none" aria-label="Contact Us">Contact Us</a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

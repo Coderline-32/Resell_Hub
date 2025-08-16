@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,11 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Buy and sell second-hand goods locally with SecondGoods Hub. Discover sustainable shopping and great deals in your community.">
     <meta name="keywords" content="second-hand goods, local marketplace, sustainable shopping, buy sell locally, SecondGoods Hub">
+    <meta property="og:title" content="SecondGoods Hub - Buy & Sell Locally">
+    <meta property="og:description" content="Connect with your community to buy and sell second-hand items. Sustainable shopping, smart saving, right in your neighborhood.">
+    <meta property="og:image" content="{% static 'users/images/Vintage_landing.jpg' %}">
+    <meta property="og:url" content="https://www.secondgoodshub.com">
+    <meta name="twitter:card" content="summary_large_image">
     <title>SecondGoods Hub - Buy & Sell Locally</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -29,85 +33,105 @@
         }
         .btn-primary {
             background-color: #4CAF50;
-            transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
-            animation: pulse 2s infinite;
+            transition: all 0.3s ease-in-out;
         }
         .btn-primary:hover {
             background-color: #689F38;
             transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
         .btn-secondary {
             border: 2px solid #4CAF50;
             color: #4CAF50;
-            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            transition: all 0.3s ease-in-out;
         }
         .btn-secondary:hover {
             background-color: #4CAF50;
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
+        }
+        .hero-gradient-sm {
+            background: linear-gradient(to bottom, #FFFFFF, #E8F5E9);
         }
     </style>
 </head>
 <body class="antialiased text-gray-800">
-    {% load static %}
-    <!-- Header/Navbar -->
-    <header class="bg-white shadow-sm py-4 px-6 md:px-10">
+    <header class="fixed top-0 left-0 w-full bg-white shadow-sm py-4 px-6 md:px-10 z-50" role="banner">
         <nav class="container mx-auto flex justify-between items-center">
-            <a href="/" class="text-2xl font-bold text-gray-900" aria-label="SecondGoods Hub Home">SecondGoods Hub</a>
-            <div class="flex space-x-4">
-                <a href="{% url 'register' %}" class="px-5 py-2 rounded-lg btn-primary text-white hidden sm:block" aria-label="Sign up for SecondGoods Hub">Sign Up</a>
-                <a href="/login" class="px-5 py-2 rounded-lg btn-secondary hidden sm:block" aria-label="Log in to SecondGoods Hub">Login</a>
+            <a href="/" class="text-2xl font-bold text-gray-900 hover:text-green-500 transition-colors" aria-label="SecondGoods Hub Home">SecondGoods Hub</a>
+            <div class="flex items-center space-x-4">
+                <div class="hidden sm:flex space-x-4">
+                    <a href="{% url 'register' %}" class="px-5 py-2 rounded-lg btn-primary text-white focus:ring-2 focus:ring-green-400 focus:outline-none" aria-label="Sign up for SecondGoods Hub">Sign Up</a>
+                    <a href="/login" class="px-5 py-2 rounded-lg btn-secondary focus:ring-2 focus:ring-green-400 focus:outline-none" aria-label="Log in to SecondGoods Hub">Login</a>
+                </div>
+                <button class="sm:hidden text-gray-900 focus:outline-none" aria-label="Toggle navigation menu" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
             </div>
         </nav>
-    </header>
-<img src="{% static 'users/images/Vintage_landing.jpg' %}" alt="Marketplace Hero">
-    <!-- Hero Section -->
-    <section class="relative bg-cover bg-center py-16 md:py-24 text-center" style="background-image: url('/images/community-market.jpg')">
-        <div class="container mx-auto px-6 md:px-10 relative z-10">
-            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">
-                <span class="block text-gray-900">Discover Local Treasures,</span>
-                <span class="block text-gradient">Sell Your Pre-Loved Goods!</span>
-            </h1>
-            <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-                Connect with your community to effortlessly buy and sell second-hand items. Sustainable shopping, smart saving, right in your neighborhood.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <a href="/register" class="px-8 py-4 rounded-xl font-semibold text-lg text-white btn-primary shadow-md" aria-label="Sell your items on SecondGoods Hub">Sell Your Items Now</a>
-                <a href="/register" class="px-8 py-4 rounded-xl font-semibold text-lg btn-secondary shadow-md" aria-label="Find great deals on SecondGoods Hub">Find Great Deals</a>
+        <div id="mobile-menu" class="hidden sm:hidden bg-white shadow-md mt-4 rounded-lg">
+            <div class="flex flex-col space-y-2 p-4">
+                <a href="{% url 'register' %}" class="px-5 py-2 rounded-lg btn-primary text-white text-center" aria-label="Sign up for SecondGoods Hub">Sign Up</a>
+                <a href="/login" class="px-5 py-2 rounded-lg btn-secondary text-center" aria-label="Log in to SecondGoods Hub">Login</a>
             </div>
-            
-            
-            
         </div>
-        <div class="absolute inset-0 z-0">
-            <div class="absolute w-64 h-64 bg-green-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 top-10 left-10 animate-blob"></div>
-            <div class="absolute w-72 h-72 bg-lime-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 bottom-20 right-20 animate-blob animation-delay-2000"></div>
+    </header>
+
+    <section class="relative text-center pt-20 md:pt-24" role="region" aria-label="Hero Section">
+        <div class="relative w-full">
+            <!-- Background: Gradient for small screens, Image for md+ -->
+            <div class="w-full h-64 sm:h-80 md:h-[500px] relative hero-gradient-sm md:bg-none">
+                <img src="{% static 'users/images/Vintage_landing.jpg' %}"
+                     alt="Marketplace Hero"
+                     class="hidden md:block w-full h-full object-cover opacity-70"
+                     onerror="this.src='https://via.placeholder.com/1200x500?text=SecondGoods+Hero'">
+                <!-- Gradient overlay for image on md+ -->
+                <div class="hidden md:block absolute inset-0 hero-overlay"></div>
+            </div>
+
+            <!-- Hero Text -->
+            <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4 sm:px-6 md:px-10 pt-8 md:pt-0 z-20">
+                <h1 class="text-2xl sm:text-4xl md:text-6xl font-extrabold leading-tight mb-4 text-gray-900 md:text-white">
+                    <span class="block">Discover Local Treasures</span>
+                    <span class="block text-gradient">Sell Your Pre-Loved Goods!</span>
+                </h1>
+                <p class="text-sm sm:text-base md:text-xl text-gray-700 md:text-white max-w-md sm:max-w-lg md:max-w-2xl mx-auto">
+                    Connect with your community to effortlessly buy and sell second-hand items.
+                    Sustainable shopping, smart saving, right in your neighborhood.
+                </p>
+                <div class="mt-6 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="/register" class="px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg text-white btn-primary shadow-md focus:ring-2 focus:ring-white focus:outline-none">
+                        Sell Your Items Now
+                    </a>
+                    <a href="/register" class="px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg btn-secondary shadow-md focus:ring-2 focus:ring-white focus:outline-none">
+                        Find Great Deals
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- How It Works Section -->
-    <section class="bg-gray-50 py-16 md:py-20 px-6 md:px-10">
+    <section class="bg-gray-50 py-16 md:py-20 px-6 md:px-10" role="region" aria-label="How It Works">
         <div class="container mx-auto text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12">How It Works</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-                <div class="bg-white rounded-xl shadow-lg p-8 flex flex-col items-center">
+                <div class="bg-white rounded-xl shadow-lg p-8 flex flex-col items-center transform hover:scale-105 transition-transform">
                     <img src="/images/step1-icon.png" alt="Step 1: List or Browse" class="mb-6 rounded-full h-24 w-24">
                     <h3 class="text-2xl font-bold text-gray-900 mb-3">List Your Item / Browse</h3>
                     <p class="text-gray-600">Sellers easily post items with photos. Buyers explore a diverse range of local goods.</p>
                 </div>
-                <div class="bg-white rounded-xl shadow-lg p-8 flex flex-col items-center">
+                <div class="bg-white rounded-xl shadow-lg p-8 flex flex-col items-center transform hover:scale-105 transition-transform">
                     <img src="/images/step2-icon.png" alt="Step 2: Connect and Chat" class="mb-6 rounded-full h-24 w-24">
                     <h3 class="text-2xl font-bold text-gray-900 mb-3">Connect & Chat</h3>
                     <p class="text-gray-600">Use our secure messaging to ask questions, negotiate, and arrange meetups.</p>
                 </div>
-                <div class="bg-white rounded-xl shadow-lg p-8 flex flex-col items-center">
+                <div class="bg-white rounded-xl shadow-lg p-8 flex flex-col items-center transform hover:scale-105 transition-transform">
                     <img src="/images/step3-icon.png" alt="Step 3: Meet and Exchange" class="mb-6 rounded-full h-24 w-24">
                     <h3 class="text-2xl font-bold text-gray-900 mb-3">Meet & Exchange</h3>
                     <p class="text-gray-600">Finalize your deal safely and conveniently with local pick-up or delivery.</p>
@@ -116,47 +140,46 @@
         </div>
     </section>
 
-    <!-- Benefits Section -->
-    <section class="bg-white py-16 md:py-20 px-6 md:px-10">
+    <section class="bg-white py-16 md:py-20 px-6 md:px-10" role="region" aria-label="Why Choose SecondGoods Hub">
         <div class="container mx-auto text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12">Why Choose SecondGoods Hub?</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 text-left">
-                <div class="flex items-start bg-gray-50 p-6 rounded-xl shadow-sm">
+                <div class="flex items-start bg-gray-50 p-6 rounded-xl shadow-sm transform hover:scale-105 transition-transform">
                     <span class="text-4xl text-green-500 mr-4">♻️</span>
                     <div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Sustainable Living</h3>
                         <p class="text-gray-600">Give items a second life and reduce waste. Shop smarter, live greener.</p>
                     </div>
                 </div>
-                <div class="flex items-start bg-gray-50 p-6 rounded-xl shadow-sm">
+                <div class="flex items-start bg-gray-50 p-6 rounded-xl shadow-sm transform hover:scale-105 transition-transform">
                     <span class="text-4xl text-green-500 mr-4">💰</span>
                     <div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Save Money & Earn Cash</h3>
                         <p class="text-gray-600">Find incredible deals or declutter your home while making extra income.</p>
                     </div>
                 </div>
-                <div class="flex items-start bg-gray-50 p-6 rounded-xl shadow-sm">
+                <div class="flex items-start bg-gray-50 p-6 rounded-xl shadow-sm transform hover:scale-105 transition-transform">
                     <span class="text-4xl text-green-500 mr-4">📍</span>
                     <div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Local & Convenient</h3>
                         <p class="text-gray-600">Easily connect with buyers and sellers right in your neighborhood.</p>
                     </div>
                 </div>
-                <div class="flex items-start bg-gray-50 p-6 rounded-xl shadow-sm">
+                <div class="flex items-start bg-gray-50 p-6 rounded-xl shadow-sm transform hover:scale-105 transition-transform">
                     <span class="text-4xl text-green-500 mr-4">🔒</span>
                     <div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Safe & Secure</h3>
                         <p class="text-gray-600">Our platform prioritizes your safety with secure messaging and user reviews.</p>
                     </div>
                 </div>
-                <div class="flex items-start bg-gray-50 p-6 rounded-xl shadow-sm">
+                <div class="flex items-start bg-gray-50 p-6 rounded-xl shadow-sm transform hover:scale-105 transition-transform">
                     <span class="text-4xl text-green-500 mr-4">✨</span>
                     <div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Easy to Use</h3>
                         <p class="text-gray-600">Intuitive interface designed for a smooth buying and selling experience.</p>
                     </div>
                 </div>
-                <div class="flex items-start bg-gray-50 p-6 rounded-xl shadow-sm">
+                <div class="flex items-start bg-gray-50 p-6 rounded-xl shadow-sm transform hover:scale-105 transition-transform">
                     <span class="text-4xl text-green-500 mr-4">🤝</span>
                     <div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Community Focused</h3>
@@ -167,22 +190,21 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="bg-gray-100 py-16 md:py-20 px-6 md:px-10">
+    <section class="bg-gray-100 py-16 md:py-20 px-6 md:px-10" role="region" aria-label="Testimonials">
         <div class="container mx-auto text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12">What Our Users Say</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white rounded-xl shadow-lg p-8 text-center">
+                <div class="bg-white rounded-xl shadow-lg p-8 text-center transform hover:scale-105 transition-transform">
                     <p class="text-lg italic text-gray-700 mb-6">"Found exactly what I needed at a great price, right down the street! SecondGoods Hub is a game-changer for local shopping."</p>
                     <p class="font-semibold text-gray-900">- Jane D.</p>
                     <p class="text-sm text-gray-500">Happy Buyer</p>
                 </div>
-                <div class="bg-white rounded-xl shadow-lg p-8 text-center">
+                <div class="bg-white rounded-xl shadow-lg p-8 text-center transform hover:scale-105 transition-transform">
                     <p class="text-lg italic text-gray-700 mb-6">"Selling my old furniture was so easy and quick. Love the local connection and helping reduce waste. Highly recommend!"</p>
                     <p class="font-semibold text-gray-900">- Mark S.</p>
                     <p class="text-sm text-gray-500">Successful Seller</p>
                 </div>
-                <div class="bg-white rounded-xl shadow-lg p-8 text-center">
+                <div class="bg-white rounded-xl shadow-lg p-8 text-center transform hover:scale-105 transition-transform">
                     <p class="text-lg italic text-gray-700 mb-6">"Great platform for finding unique items. The chat feature makes communication simple and secure. My new favorite app!"</p>
                     <p class="font-semibold text-gray-900">- Emily R.</p>
                     <p class="text-sm text-gray-500">Enthusiastic User</p>
@@ -190,27 +212,24 @@
             </div>
         </div>
     </section>
-    
 
-    <!-- Call to Action Section -->
-    <section class="bg-gradient-to-r from-green-600 to-lime-500 py-16 md:py-20 text-white text-center px-6 md:px-10 rounded-b-xl">
+    <section class="bg-gradient-to-r from-green-600 to-lime-500 py-16 md:py-20 text-white text-center px-6 md:px-10 rounded-b-xl" role="region" aria-label="Call to Action">
         <div class="container mx-auto">
-            <h2 class="text-3xl md:text-5xl font-extrabold mb-6">Ready to Join 10,000+ Local Buyers & Sellers?</h2>
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-6">Join 10,000+ Local Buyers & Sellers!</h2>
             <p class="text-lg md:text-xl mb-10 max-w-2xl mx-auto">
-                Start connecting with local buyers and sellers today. It's free, fast, and friendly!
+                Start connecting with your community today. It's free, fast, and eco-friendly!
             </p>
-            <a href="/register" class="px-10 py-5 rounded-full font-bold text-xl bg-white text-green-700 hover:bg-gray-100 transition duration-300 shadow-xl" aria-label="Get started with SecondGoods Hub">Get Started Now!</a>
+            <a href="/register" class="px-10 py-5 rounded-full font-bold text-xl bg-white text-green-700 hover:bg-gray-100 transition duration-300 shadow-xl focus:ring-2 focus:ring-white focus:outline-none" aria-label="Get started with SecondGoods Hub">Get Started Now!</a>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-300 py-8 px-6 md:px-10">
+    <footer class="bg-gray-900 text-gray-300 py-8 px-6 md:px-10" role="contentinfo">
         <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center text-sm">
             <p>&copy; 2025 SecondGoods Hub. All rights reserved.</p>
             <div class="flex space-x-4 mt-4 sm:mt-0">
-                <a href="/privacy" class="hover:text-white" aria-label="Privacy Policy">Privacy Policy</a>
-                <a href="/terms" class="hover:text-white" aria-label="Terms of Service">Terms of Service</a>
-                <a href="/contact" class="hover:text-white" aria-label="Contact Us">Contact Us</a>
+                <a href="/privacy" class="hover:text-white focus:ring-2 focus:ring-white focus:outline-none" aria-label="Privacy Policy">Privacy Policy</a>
+                <a href="/terms" class="hover:text-white focus:ring-2 focus:ring-white focus:outline-none" aria-label="Terms of Service">Terms of Service</a>
+                <a href="/contact" class="hover:text-white focus:ring-2 focus:ring-white focus:outline-none" aria-label="Contact Us">Contact Us</a>
             </div>
         </div>
     </footer>

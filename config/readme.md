@@ -24,4 +24,18 @@ Bootstrap
 clone repo
 
 # Created:
-Login
+# Login:
+For user to log into their accounts
+Used Django athentication sytem
+
+# Sign up
+User to create accounts
+Used Django authentication system
+
+# Log out
+To switch out of their accounts
+
+# index page
+Landing page for first time visitors
+# home page
+Redirection page for loggedin or signed in users

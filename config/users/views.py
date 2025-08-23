@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
-from .forms import UserDetailForm, LoginForm
+from .forms import UserDetailForm, LoginForm,  SellerProfileForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages 
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 
@@ -67,3 +68,38 @@ def logout_view(request):
     """
     logout(request)
     return redirect('index') # Take the users back to landing page after signing out
+
+@login_required
+def profile_view(request):
+    return render(request, 'users/profile.html')
+
+
+@login_required
+def register_seller(request):
+    """
+    Handle seller registration 
+    """
+    if hasattr(request.user, "seller_profile" ):
+        return redirect('seller_dashboard')
+    
+    if request.method == 'POST':
+        form = SellerProfileForm(request.POST)
+        if form.is_valid():
+            seller = form.save(commit=False)
+            seller.user = request.user
+            seller.save()
+            return redirect('seller_dashboard')
+    else:
+        form = SellerProfileForm()
+    
+    return render(request, 'users/register_seller.html', {'form':form} )
+
+@login_required
+def seller_dashboard(request):
+    # make sure only registered sellers access the page
+    if not hasattr(request.user, 'seller_profile'):
+        return redirect('register_seller')
+    
+    seller = request.user.seller_profile
+
+    return render(request, 'users/seller_dashboard.html', {'seller':seller})

@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Buy and sell second-hand goods locally with SecondGoods Hub. Discover sustainable shopping and great deals in your community.">
-    <meta name="keywords" content="second-hand goods, local marketplace, sustainable shopping, buy sell locally, SecondGoods Hub">
-    <meta property="og:title" content="SecondGoods Hub - Buy & Sell Locally">
+    <meta name="description" content="Buy and sell second-hand goods locally with Kenuwn Hub. Discover sustainable shopping and great deals in your community.">
+    <meta name="keywords" content="second-hand goods, local marketplace, sustainable shopping, buy sell locally, Kenuwn Hub">
+    <meta property="og:title" content="Kenuwn Hub - Buy & Sell Locally">
     <meta property="og:description" content="Connect with your community to buy and sell second-hand items. Sustainable shopping, smart saving, right in your neighborhood.">
     <meta property="og:image" content="{% static 'users/images/Vintage_landing.jpg' %}">
-    <meta property="og:url" content="https://www.secondgoodshub.com">
+    <meta property="og:url" content="https://www.Kenuwnhub.com">
     <meta name="twitter:card" content="summary_large_image">
-    <title>SecondGoods Hub - Buy & Sell Locally</title>
+    <title>Kenuwn Hub - Buy & Sell Locally</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -62,11 +62,11 @@
 <body class="antialiased text-gray-800">
     <header class="fixed top-0 left-0 w-full bg-white shadow-sm py-4 px-6 md:px-10 z-50" role="banner">
         <nav class="container mx-auto flex justify-between items-center">
-            <a href="/" class="text-2xl font-bold text-gray-900 hover:text-green-500 transition-colors" aria-label="SecondGoods Hub Home">SecondGoods Hub</a>
+            <a href="/" class="text-2xl font-bold text-gray-900 hover:text-green-500 transition-colors" aria-label="Kenuwn Hub Home">Kenuwn Hub</a>
             <div class="flex items-center space-x-4">
                 <div class="hidden sm:flex space-x-4">
-                    <a href="{% url 'register' %}" class="px-5 py-2 rounded-lg btn-primary text-white focus:ring-2 focus:ring-green-400 focus:outline-none" aria-label="Sign up for SecondGoods Hub">Sign Up</a>
-                    <a href="/login" class="px-5 py-2 rounded-lg btn-secondary focus:ring-2 focus:ring-green-400 focus:outline-none" aria-label="Log in to SecondGoods Hub">Login</a>
+                    <a href="{% url 'register' %}" class="px-5 py-2 rounded-lg btn-primary text-white focus:ring-2 focus:ring-green-400 focus:outline-none" aria-label="Sign up for Kenuwn Hub">Sign Up</a>
+                    <a href="/login" class="px-5 py-2 rounded-lg btn-secondary focus:ring-2 focus:ring-green-400 focus:outline-none" aria-label="Log in to Kenuwn Hub">Login</a>
                 </div>
                 <button class="sm:hidden text-gray-900 focus:outline-none" aria-label="Toggle navigation menu" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -77,8 +77,8 @@
         </nav>
         <div id="mobile-menu" class="hidden sm:hidden bg-white shadow-md mt-4 rounded-lg">
             <div class="flex flex-col space-y-2 p-4">
-                <a href="{% url 'register' %}" class="px-5 py-2 rounded-lg btn-primary text-white text-center" aria-label="Sign up for SecondGoods Hub">Sign Up</a>
-                <a href="/login" class="px-5 py-2 rounded-lg btn-secondary text-center" aria-label="Log in to SecondGoods Hub">Login</a>
+                <a href="{% url 'register' %}" class="px-5 py-2 rounded-lg btn-primary text-white text-center" aria-label="Sign up for Kenuwn Hub">Sign Up</a>
+                <a href="/login" class="px-5 py-2 rounded-lg btn-secondary text-center" aria-label="Log in to Kenuwn Hub">Login</a>
             </div>
         </div>
     </header>
@@ -89,8 +89,8 @@
             <div class="w-full h-64 sm:h-80 md:h-[500px] relative hero-gradient-sm md:bg-none">
                 <img src="{% static 'users/images/Vintage_landing.jpg' %}"
                      alt="Marketplace Hero"
-                     class="hidden md:block w-full h-full object-cover opacity-70"
-                     onerror="this.src='https://via.placeholder.com/1200x500?text=SecondGoods+Hero'">
+                     class="hidden md:block w-full h-full object-cover opacity-100"
+                     onerror="this.src='https://via.placeholder.com/1200x500?text=Kenuwn+Hero'">
                 <!-- Gradient overlay for image on md+ -->
                 <div class="hidden md:block absolute inset-0 hero-overlay"></div>
             </div>
@@ -122,17 +122,17 @@
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12">How It Works</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
                 <div class="bg-white rounded-xl shadow-lg p-8 flex flex-col items-center transform hover:scale-105 transition-transform">
-                    <img src="/images/step1-icon.png" alt="Step 1: List or Browse" class="mb-6 rounded-full h-24 w-24">
+                    <img src="{% static 'users/images/list.png' %}" alt="Step 1: List or Browse" class="mb-6 full h-24 w-65">
                     <h3 class="text-2xl font-bold text-gray-900 mb-3">List Your Item / Browse</h3>
                     <p class="text-gray-600">Sellers easily post items with photos. Buyers explore a diverse range of local goods.</p>
                 </div>
                 <div class="bg-white rounded-xl shadow-lg p-8 flex flex-col items-center transform hover:scale-105 transition-transform">
-                    <img src="/images/step2-icon.png" alt="Step 2: Connect and Chat" class="mb-6 rounded-full h-24 w-24">
+                    <img src="{% static 'users/images/connect.png' %}" alt="Step 2: Connect and Chat" class="mb-6 rounded-full h-24 w-65">
                     <h3 class="text-2xl font-bold text-gray-900 mb-3">Connect & Chat</h3>
                     <p class="text-gray-600">Use our secure messaging to ask questions, negotiate, and arrange meetups.</p>
                 </div>
                 <div class="bg-white rounded-xl shadow-lg p-8 flex flex-col items-center transform hover:scale-105 transition-transform">
-                    <img src="/images/step3-icon.png" alt="Step 3: Meet and Exchange" class="mb-6 rounded-full h-24 w-24">
+                    <img src="{% static 'users/images/exchange.png' %}" alt="Step 3: Meet and Exchange" class="mb-6 rounded-full h-24 w-24">
                     <h3 class="text-2xl font-bold text-gray-900 mb-3">Meet & Exchange</h3>
                     <p class="text-gray-600">Finalize your deal safely and conveniently with local pick-up or delivery.</p>
                 </div>
@@ -140,9 +140,9 @@
         </div>
     </section>
 
-    <section class="bg-white py-16 md:py-20 px-6 md:px-10" role="region" aria-label="Why Choose SecondGoods Hub">
+    <section class="bg-white py-16 md:py-20 px-6 md:px-10" role="region" aria-label="Why Choose Kenuwn Hub">
         <div class="container mx-auto text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12">Why Choose SecondGoods Hub?</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12">Why Choose Kenuwn Hub?</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 text-left">
                 <div class="flex items-start bg-gray-50 p-6 rounded-xl shadow-sm transform hover:scale-105 transition-transform">
                     <span class="text-4xl text-green-500 mr-4">♻️</span>
@@ -195,7 +195,7 @@
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12">What Our Users Say</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="bg-white rounded-xl shadow-lg p-8 text-center transform hover:scale-105 transition-transform">
-                    <p class="text-lg italic text-gray-700 mb-6">"Found exactly what I needed at a great price, right down the street! SecondGoods Hub is a game-changer for local shopping."</p>
+                    <p class="text-lg italic text-gray-700 mb-6">"Found exactly what I needed at a great price, right down the street! Kenuwn Hub is a game-changer for local shopping."</p>
                     <p class="font-semibold text-gray-900">- Jane D.</p>
                     <p class="text-sm text-gray-500">Happy Buyer</p>
                 </div>
@@ -219,13 +219,13 @@
             <p class="text-lg md:text-xl mb-10 max-w-2xl mx-auto">
                 Start connecting with your community today. It's free, fast, and eco-friendly!
             </p>
-            <a href="/register" class="px-10 py-5 rounded-full font-bold text-xl bg-white text-green-700 hover:bg-gray-100 transition duration-300 shadow-xl focus:ring-2 focus:ring-white focus:outline-none" aria-label="Get started with SecondGoods Hub">Get Started Now!</a>
+            <a href="/register" class="px-10 py-5 rounded-full font-bold text-xl bg-white text-green-700 hover:bg-gray-100 transition duration-300 shadow-xl focus:ring-2 focus:ring-white focus:outline-none" aria-label="Get started with Kenuwn Hub">Get Started Now!</a>
         </div>
     </section>
 
     <footer class="bg-gray-900 text-gray-300 py-8 px-6 md:px-10" role="contentinfo">
         <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center text-sm">
-            <p>&copy; 2025 SecondGoods Hub. All rights reserved.</p>
+            <p>&copy; 2025 Kenuwn Hub. All rights reserved.</p>
             <div class="flex space-x-4 mt-4 sm:mt-0">
                 <a href="/privacy" class="hover:text-white focus:ring-2 focus:ring-white focus:outline-none" aria-label="Privacy Policy">Privacy Policy</a>
                 <a href="/terms" class="hover:text-white focus:ring-2 focus:ring-white focus:outline-none" aria-label="Terms of Service">Terms of Service</a>

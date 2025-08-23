@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Register for SecondGoods Hub to buy and sell second-hand goods locally. Join our community for sustainable shopping and great deals.">
-    <meta name="keywords" content="second-hand goods, local marketplace, sustainable shopping, buy sell locally, SecondGoods Hub, register">
-    <title>SecondGoods Hub - Register</title>
+    <meta name="description" content="Register for KenuwnHub to buy and sell second-hand goods locally. Join our community for sustainable shopping and great deals.">
+    <meta name="keywords" content="second-hand goods, local marketplace, sustainable shopping, buy sell locally, KenuwnHub, register">
+    <title>KenuwnHub - Register</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -90,7 +90,7 @@
     <!-- Header/Navbar (simple) -->
     <header class="w-full bg-white shadow-sm py-4 px-6 md:px-10">
         <nav class="container mx-auto flex justify-between items-center">
-            <a href="{% url 'index' %}" class="text-2xl font-bold text-gray-900">SecondGoods Hub</a>
+            <a href="{% url 'index' %}" class="text-2xl font-bold text-gray-900">KenuwnHub</a>
             <div>
                 <a href="/login" 
                    class="text-green-600 font-semibold px-4 py-2 rounded-md border border-green-600 hover:bg-green-50 transition">
@@ -121,28 +121,10 @@
                 </label>
                 {{ form.username }}
                 {% if form.username.errors %}<ul class="errorlist">{% for error in form.username.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
-                {% if form.username.help_text %}<p class="helptext">{{ form.username.help_text }}</p>{% endif %}
+               
             </div>
 
-            {# First Name field #}
-            <div class="form-group">
-                <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                    {{ form.first_name.label_tag }}
-                </label>
-                {{ form.first_name }}
-                {% if form.first_name.errors %}<ul class="errorlist">{% for error in form.first_name.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
-                {% if form.first_name.help_text %}<p class="helptext">{{ form.first_name.help_text }}</p>{% endif %}
-            </div>
-
-            {# Last Name field #}
-            <div class="form-group">
-                <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                    {{ form.last_name.label_tag }}
-                </label>
-                {{ form.last_name }}
-                {% if form.last_name.errors %}<ul class="errorlist">{% for error in form.last_name.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
-                {% if form.last_name.help_text %}<p class="helptext">{{ form.last_name.help_text }}</p>{% endif %}
-            </div>
+            
 
             {# Email field #}
             <div class="form-group">
@@ -154,16 +136,7 @@
                 {% if form.email.help_text %}<p class="helptext">{{ form.email.help_text }}</p>{% endif %}
             </div>
 
-            {# Phone Number field #}
-            <div class="form-group">
-                <label for="{{ form.phone_number.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                    {{ form.phone_number.label_tag }}
-                </label>
-                {{ form.phone_number }}
-                {% if form.phone_number.errors %}<ul class="errorlist">{% for error in form.phone_number.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
-                {% if form.phone_number.help_text %}<p class="helptext">{{ form.phone_number.help_text }}</p>{% endif %}
-            </div>
-
+            
             {# Password fields #}
             <div class="form-group">
                 <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
@@ -203,7 +176,7 @@
     <!-- Footer -->
     <footer class="bg-gray-900 text-gray-300 py-8 px-6 md:px-10 w-full" role="contentinfo">
         <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center text-sm">
-            <p>&copy; 2025 SecondGoods Hub. All rights reserved.</p>
+            <p>&copy; 2025 KenuwnHub. All rights reserved.</p>
             <div class="flex space-x-6 mt-4 sm:mt-0">
                 <a href="/privacy" class="text-gray-300 hover:text-green-500 focus:ring-2 focus:ring-green-500 focus:outline-none" aria-label="Privacy Policy">Privacy Policy</a>
                 <a href="/terms" class="text-gray-300 hover:text-green-500 focus:ring-2 focus:ring-green-500 focus:outline-none" aria-label="Terms of Service">Terms of Service</a>

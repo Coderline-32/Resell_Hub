@@ -65,7 +65,7 @@
             <a href="/" class="text-2xl font-bold text-gray-900 hover:text-green-500 transition-colors" aria-label="Kenuwn Hub Home">Kenuwn Hub</a>
             <div class="flex items-center space-x-4">
                 <div class="hidden sm:flex space-x-4">
-                    <a href="{% url 'register' %}" class="px-5 py-2 rounded-lg btn-primary text-white focus:ring-2 focus:ring-green-400 focus:outline-none" aria-label="Sign up for Kenuwn Hub">Sign Up</a>
+                    <a href="{% url 'users:register' %}" class="px-5 py-2 rounded-lg btn-primary text-white focus:ring-2 focus:ring-green-400 focus:outline-none" aria-label="Sign up for Kenuwn Hub">Sign Up</a>
                     <a href="/login" class="px-5 py-2 rounded-lg btn-secondary focus:ring-2 focus:ring-green-400 focus:outline-none" aria-label="Log in to Kenuwn Hub">Login</a>
                 </div>
                 <button class="sm:hidden text-gray-900 focus:outline-none" aria-label="Toggle navigation menu" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
@@ -77,7 +77,7 @@
         </nav>
         <div id="mobile-menu" class="hidden sm:hidden bg-white shadow-md mt-4 rounded-lg">
             <div class="flex flex-col space-y-2 p-4">
-                <a href="{% url 'register' %}" class="px-5 py-2 rounded-lg btn-primary text-white text-center" aria-label="Sign up for Kenuwn Hub">Sign Up</a>
+                <a href="{% url 'users:register' %}" class="px-5 py-2 rounded-lg btn-primary text-white text-center" aria-label="Sign up for Kenuwn Hub">Sign Up</a>
                 <a href="/login" class="px-5 py-2 rounded-lg btn-secondary text-center" aria-label="Log in to Kenuwn Hub">Login</a>
             </div>
         </div>

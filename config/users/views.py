@@ -1,19 +1,73 @@
-from django.shortcuts import render, redirect
-from .forms import UserDetailForm, LoginForm,  SellerProfileForm
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import UserDetailForm, LoginForm,  SellerProfileForm, UserUpdateForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages 
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+from .models import UserDetail, SellerProfile
+from rest_framework import generics, permissions, response, status
+from .serializers import UserDetailSerializer, SellerDetailSerializer, UserRegisterSerializer
+from rest_framework.generics import GenericAPIView
+from rest_framework_simplejwt.tokens import RefreshToken
+from .serializers import LoginSerializer
+from rest_framework.response import Response
 
 # Create your views here.
+class UserRegisterView(generics.CreateAPIView):
+    queryset = UserDetail.objects.all()
+    serializer_class = UserRegisterSerializer
+
+class UserLoginView(GenericAPIView):
+    serializer_class = LoginSerializer
+
+    def post(self, request):
+        
+        serializer = self.get_serializer(data=request.data) 
+        serializer.is_valid(raise_exception=True)       
+        user = serializer.validated_data["user"]       
+        refresh = RefreshToken.for_user(user)
+
+        return Response({
+            "refresh": str(refresh),
+            "access": str(refresh.access_token),
+            "username": user.username,
+            "email": user.email,
+        }, status=status.HTTP_200_OK)
+
+class UserListView(generics.ListAPIView):
+    queryset = UserDetail.objects.all()
+    serializer_class = UserDetailSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = UserDetail.objects.all()
+    serializer_class = UserDetailSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        # Only allow users to access their info
+
+        return self.request.user
+
+class SellerListView(generics.ListAPIView):
+    # Only allow users to access their info
+    queryset = SellerProfile.objects.all()
+    serializer_class = SellerDetailSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+
+
+
+
+
+
 
 
 def index_view(request):
+    
     return render(request, 'users/index.html')
 
-@login_required(login_url = 'index') #Ensures only logged inusers can access the page
-def home_view(request):
-    return render(request,  'users/home.html')
+
 
 def register(request):
     """
@@ -26,7 +80,7 @@ def register(request):
         if form.is_valid():
             user = form.save() # save user to database
             login(request, user)            
-            return redirect('home') # Redirect user to a homepage
+            return redirect('products:home') # Redirect user to a homepage
         
         else:
             messages.error(request, 'Please Correct the errors below')
@@ -52,7 +106,7 @@ def login_view(request):
                 user = authenticate(request, username=username, password=password) # check for details with the database and ensure that a user data is present before loggin in
                 if user is not None:
                     login(request, user) # logs in the user
-                    return redirect('home') # Directs them to homepage logged where they can interact with goods
+                    return redirect('products:home') # Directs them to homepage logged where they can interact with goods
                 else:
                     messages.error(request, 'Please enter valid username or password')
     else:
@@ -67,7 +121,7 @@ def logout_view(request):
     Function which provides a way for users to logout after signing in
     """
     logout(request)
-    return redirect('index') # Take the users back to landing page after signing out
+    return redirect('users:index') # Take the users back to landing page after signing out
 
 @login_required
 def profile_view(request):
@@ -80,7 +134,7 @@ def register_seller(request):
     Handle seller registration 
     """
     if hasattr(request.user, "seller_profile" ):
-        return redirect('seller_dashboard')
+        return redirect('users:seller_dashboard')
     
     if request.method == 'POST':
         form = SellerProfileForm(request.POST)
@@ -88,18 +142,26 @@ def register_seller(request):
             seller = form.save(commit=False)
             seller.user = request.user
             seller.save()
-            return redirect('seller_dashboard')
+            return redirect('users:seller_dashboard')
     else:
         form = SellerProfileForm()
     
     return render(request, 'users/register_seller.html', {'form':form} )
 
 @login_required
-def seller_dashboard(request):
-    # make sure only registered sellers access the page
-    if not hasattr(request.user, 'seller_profile'):
-        return redirect('register_seller')
-    
-    seller = request.user.seller_profile
 
-    return render(request, 'users/seller_dashboard.html', {'seller':seller})
+def update_profile(request):
+
+    """
+    Allow users to update their profiles
+    """
+    
+    if request.method =='POST':
+        form = UserUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('users:profile')
+    else:
+        form = UserUpdateForm(instance=request.user)
+
+    return render(request, 'users/update_profile.html', {'form':form})

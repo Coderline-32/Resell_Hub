@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Your Product | KenuwnHub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font for Inter */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-osx-font-smoothing: grayscale;
+        }
+
+        /* Styling for Django form fields wrapped in <p> tags */
+        form p {
+            margin-bottom: 0.5rem; /* Significantly reduced margin */
+        }
+
+        form p label {
+            display: block;
+            font-weight: 500;
+            color: #4B5563; /* Gray-600 */
+            margin-bottom: 0.125rem; /* Very small margin below label */
+            font-size: 0.875rem; /* Smaller label text */
+        }
+
+        form p input[type="text"],
+        form p input[type="number"],
+        form p select,
+        form p textarea,
+        form p input[type="file"] {
+            width: 100%;
+            padding: 0.5rem 0.75rem; /* Reduced vertical padding */
+            border: 1px solid #D1D5DB; /* Gray-300 */
+            border-radius: 0.375rem; /* Slightly smaller border radius */
+            background-color: #F9FAFB; /* Gray-50 */
+            font-size: 0.875rem; /* Smaller input text */
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        form p input:focus,
+        form p select:focus,
+        form p textarea:focus {
+            outline: none;
+            border-color: #34D399; /* Emerald-400 */
+            box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.5); /* Reduced focus ring size */
+        }
+        
+        /* Drastically reduced the height of the textarea */
+        form p textarea {
+            min-height: 75px; /* Reduced from 150px (now half of that) */
+            max-height: 150px; /* Optional: set a max height to keep it from getting too tall */
+            resize: vertical; /* Allow vertical resizing only */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <nav class="bg-white shadow-sm py-4 px-4 md:px-6 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="{% url 'products:home' %}" class="flex items-center space-x-2">
+                <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2 2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                <span class="text-2xl font-bold text-gray-800">Kenuwn Hub</span>
+            </a>
+
+            <a href="{% url 'products:seller_dashboard' %}" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200">
+                <svg class="w-5 h-5 mr-2 -ml-1 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                Return to Dashboard
+            </a>
+        </div>
+    </nav>
+
+    <div class="flex items-center justify-center p-4">
+        <div class="max-w-xl w-full bg-white rounded-xl shadow-lg p-5 md:p-6">
+            <header class="text-center mb-5">
+                <h2 class="text-2xl font-extrabold text-gray-800">List Your Product</h2>
+                <p class="mt-1 text-gray-500 text-sm">Fill out the details below to create a new product listing.</p>
+            </header>
+            
+            <form method="post" enctype="multipart/form-data" class="space-y-3">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="w-full inline-flex items-center justify-center px-4 py-2.5 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+                    Submit Listing
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

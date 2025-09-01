@@ -5,14 +5,18 @@ from django.db import models
 
 # Create your models here.
 class UserDetail(AbstractUser):
-    phone_number = models.CharField(max_length=15)
+    username = models.CharField(max_length=100, unique=True)
+    full_name = models.CharField(max_length=50, null=True, blank=True)
+    location = models.CharField(max_length=50, null=True, blank=True)    
+    email = models.CharField(max_length=50, unique=True)
+    image = models.ImageField(upload_to='profile/', null=True, blank=True)
+    date_joined = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
 class SellerProfile(models.Model):
     user = models.OneToOneField(UserDetail, on_delete=models.CASCADE, related_name='seller_profile')
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
     shop_name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=15)
+    is_staff = models.BooleanField(default=True)
     id_number = models.CharField(
         max_length=20,
         validators=[MinLengthValidator(7)],

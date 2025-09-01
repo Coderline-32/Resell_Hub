@@ -1,13 +1,24 @@
 from django.urls import path
-from .views import index_view, home_view, register, login_view, logout_view, profile_view, register_seller, seller_dashboard
+from .views import index_view, register, login_view, logout_view, profile_view, register_seller, update_profile, UserListView, SellerListView, UserDetailView, UserRegisterView, UserLoginView
+
+app_name = 'users'
 
 urlpatterns = [
+    path('details/', UserListView.as_view(), name="users_details" ),
+    path('user_info/', UserDetailView.as_view(), name="user_info"  ),
+    path('register/', UserRegisterView.as_view(), name='user_register'),
+    path('login/', UserLoginView.as_view(), name="user_login"),
+    path('seller/details/', SellerListView.as_view(), name="seller_details"),
+
+
+
+
     path('', index_view, name='index'), 
-    path('home/', home_view, name='home' ),
     path('register/', register, name='register'),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name="logout"),
     path('profile/', profile_view, name="profile"),
     path('seller_registration/', register_seller, name='register_seller'),
-    path('seller_dashboard/', seller_dashboard, name='seller_dashboard'),
+    path('profile_update', update_profile, name='profile_update' )
+    
 ]

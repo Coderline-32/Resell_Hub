@@ -1,16 +1,16 @@
 from django.urls import path
-from .views import index_view, register, login_view, logout_view, profile_view, register_seller, update_profile, UserListView, SellerListView, UserDetailView, UserRegisterView, UserLoginView, UserLogoutView
+from .views import index_view, register, login_view, logout_view, profile_view, register_seller, update_profile, UserListView, SellerListView, UserDetailView, UserRegisterView, UserLoginView, UserLogoutView, SellerDetailview
 
 app_name = 'users'
 
 urlpatterns = [
     path('details/', UserListView.as_view(), name="users_details" ),
-    path('user_info/', UserDetailView.as_view(), name="user_info"  ),
+    path('user/info/', UserDetailView.as_view(), name="user_profile"  ),
     path('register/', UserRegisterView.as_view(), name='user_register'),
     path('login/', UserLoginView.as_view(), name='login'),
     path('logout', UserLogoutView.as_view(), name='logout'),
-    path('seller/details/', SellerListView.as_view(), name="seller_details"),
-
+    path('sellers/details/', SellerListView.as_view(), name="seller_details"),
+    path('seller/profile', SellerDetailview.as_view(), name='seller_profile'),
 
 
 

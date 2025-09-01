@@ -8,6 +8,17 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ['name']
 
 class ProductsSerializer(serializers.ModelSerializer):
+    category_name = serializers.CharField(source="category.name", default=None)
+
     class Meta:
         model = ProductListings
-        fields = '__all__'
+        fields = ['id', 'title', 'description', 'price', 'image', 'location', 'category_name', 'seller', 'created_at' ]
+        read_only_fields = ['id', 'seller', 'created_at']
+
+class MyProductsSerializer(serializers.ModelSerializer):
+    category_name = serializers.CharField(source="category.name", default=None)
+
+    class Meta:
+        model = ProductListings
+        fields = ['id', 'title', 'description', 'price', 'image', 'location', 'category_name',  'created_at' ]
+        read_only_fields = ['id', 'created_at']

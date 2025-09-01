@@ -40,4 +40,12 @@ class SellerDetailSerializer(serializers.ModelSerializer):
     class Meta:
        
         model = SellerProfile
-        fields = '__all__'
+        fields = ['shop_name', 'phone_number', 'id_number', 'location' ]
+
+class SellerRegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+              
+        model = SellerProfile
+        fields = ['id', 'shop_name', 'phone_number', 'id_number', 'location' ]
+        read_only_fields = ['id']
+

@@ -6,7 +6,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from .models import UserDetail, SellerProfile
 from rest_framework import generics, permissions, response, status
-from .serializers import UserDetailSerializer, SellerDetailSerializer, UserRegisterSerializer
+from .serializers import UserDetailSerializer, SellerDetailSerializer, UserRegisterSerializer, SellerRegisterSerializer
 from rest_framework.generics import GenericAPIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.http import JsonResponse
@@ -55,21 +55,25 @@ class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
         # Only allow users to access their info
 
         return self.request.user
+class SellerRegisterView(generics.CreateAPIView):
+    queryset = SellerProfile.objects.all()
+    serializer_class = SellerRegisterSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
+    
 class SellerListView(generics.ListAPIView):
     # Only allow users to access their info
     queryset = SellerProfile.objects.all()
     serializer_class = SellerDetailSerializer
     permission_classes = [permissions.IsAdminUser]
 
+class SellerDetailview(generics.RetrieveUpdateDestroyAPIView):
+    queryset = SellerProfile.objects.all()
+    serializer_class = SellerDetailSerializer
+    permission_classes = [permissions.IsAdminUser]
 
-
-
-
-
-
-
-
+    def get_object(self):
+        return self.request.user.seller_profile
 def index_view(request):
     
     return render(request, 'users/index.html')

@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from users.models import SellerProfile
 from .models import ProductListings
 from .permissions import IsSellerOrReadOnly
-from .serializers import ProductsSerializer, CategorySerializer
+from .serializers import ProductsSerializer, CategorySerializer, MyProductsSerializer
 from rest_framework import generics, filters, permissions
 
 # Create your views here.
@@ -15,15 +15,6 @@ class ProductsListView(generics.ListAPIView):
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['name', 'description', 'category_name']
     ordering_fields = ['category__name', 'price', 'location', 'created_at' ]
-
-class ProductsCreateView(generics.ListCreateAPIView):
-    """
-    GET: Anyone can view products
-    POST: Only sellers can create products
-    """
-    queryset= ProductListings.objects.all().order_by("-created_at")
-    serializer_class = ProductsSerializer
-    permission_classes = [IsSellerOrReadOnly]
 
     
 
@@ -36,7 +27,7 @@ class ProductsCreateView(generics.ListCreateAPIView):
         serializer.save(seller=seller_profile)
 
 
-class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
+class ProductDetailView(generics.RetrieveAPIView):
     """
     GET: View a product (anyone can view)
     PUT/PATCH/DELETE: Only owner (seller) can update or delete
@@ -44,7 +35,27 @@ class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = ProductListings.objects.all()
     serializer_class = ProductsSerializer
+    
+class MyProductsView(generics.ListCreateAPIView):
+    serializer_class = MyProductsSerializer
     permission_classes = [IsSellerOrReadOnly]
+
+    def get_queryset(self):
+        seller_data = ProductListings.objects.filter(seller=self.request.user.seller_profile)
+        return seller_data
+    def perform_create(self, serializer):
+        return serializer.save(seller=self.request.user.seller_profile)
+
+class MyProductsDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = MyProductsSerializer
+    permission_classes = [IsSellerOrReadOnly] 
+
+    def get_queryset(self):
+        product_detail = ProductListings.objects.filter(seller=self.request.user.seller_profile)
+        return product_detail
+    
+    
+        
 
 
 @login_required(login_url='users:index')

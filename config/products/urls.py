@@ -6,10 +6,7 @@ app_name = 'products'
 urlpatterns = [
     path('api/products/', ProductsListView.as_view(), name="products"),
     path('api/product/create/', ProductsCreateView.as_view(), name='product_create' ),
-    path('api/detail/<int:pk>/', ProductDetailView.as_view(), name='update' ),
-
-
-
+    path('api/product/detail/<int:pk>/', ProductDetailView.as_view(), name='update' ),
 
 
     path('product_create/', create_product_view, name='product_create'),

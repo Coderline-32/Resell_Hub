@@ -9,30 +9,37 @@ from rest_framework import generics, permissions, response, status
 from .serializers import UserDetailSerializer, SellerDetailSerializer, UserRegisterSerializer
 from rest_framework.generics import GenericAPIView
 from rest_framework_simplejwt.tokens import RefreshToken
-from .serializers import LoginSerializer
-from rest_framework.response import Response
+from django.http import JsonResponse
+from django.views import View
+
 
 # Create your views here.
 class UserRegisterView(generics.CreateAPIView):
     queryset = UserDetail.objects.all()
     serializer_class = UserRegisterSerializer
 
-class UserLoginView(GenericAPIView):
-    serializer_class = LoginSerializer
 
+class UserLoginView(View):
     def post(self, request):
-        
-        serializer = self.get_serializer(data=request.data) 
-        serializer.is_valid(raise_exception=True)       
-        user = serializer.validated_data["user"]       
-        refresh = RefreshToken.for_user(user)
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
-        return Response({
-            "refresh": str(refresh),
-            "access": str(refresh.access_token),
-            "username": user.username,
-            "email": user.email,
-        }, status=status.HTTP_200_OK)
+        user = authenticate(request, username=username, password=password)
+
+        if user:
+            login(request,user)
+            return JsonResponse({"message": "Login successful"}, status=200)
+                
+        else:
+            return JsonResponse({"error": "Invalid credentials"}, status=401)
+
+
+class UserLogoutView(View) :
+    def post(self, request):
+        logout(request) 
+        return JsonResponse({"message": "Logout successful"}, status=200)
+
+
 
 class UserListView(generics.ListAPIView):
     queryset = UserDetail.objects.all()

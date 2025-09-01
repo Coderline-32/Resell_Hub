@@ -34,21 +34,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**validated_data)
         return user
     
-class LoginSerializer(serializers.Serializer):
-    username =  serializers.CharField()
-    password = serializers.CharField(write_only=True)
 
-    def validate(self, data):
-        username = data.get('username')
-        password = data.get('password')
 
-        user = authenticate(username=username, password=password)
-
-        if not user:
-            raise AuthenticationFailed("Usename or password don't match")
-            
-        data['user'] = user
-        return data
 class SellerDetailSerializer(serializers.ModelSerializer):
     class Meta:
        

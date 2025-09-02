@@ -35,6 +35,7 @@ class ProductDetailView(generics.RetrieveAPIView):
     """
     queryset = ProductListings.objects.all()
     serializer_class = ProductsSerializer
+
     
 class MyProductsView(generics.ListCreateAPIView):
     serializer_class = MyProductsSerializer
@@ -87,7 +88,7 @@ def seller_dashboard(request):
     except SellerProfile.DoesNotExist:
         return redirect('products:home')
     
-    products = ProductListings.objects.filter(posted_by=seller_profile)
+    products = ProductListings.objects.filter(seller=seller_profile)
 
     return render(request, 'products/seller_dashboard.html', {'products': products})
 
@@ -100,14 +101,38 @@ def delete_product(request, product_id):
     except SellerProfile.DoesNotExist:
         return redirect('products:home')
     
-    del_product = get_object_or_404(ProductListings, id= product_id, posted_by = seller_profile)
+    del_product = get_object_or_404(ProductListings, id= product_id, seller = seller_profile)
     
     if request.method == 'POST':
             del_product.delete()
             return redirect('products:seller_dashboard')
     
-@login_required(login_url = 'index') #Ensures only logged inusers can access the page
+
 def home_view(request):
 
     products = ProductListings.objects.all()
-    return render(request,  'products/home.html', {'products': products})
+    categories = ProductListings.objects.values_list("category__name", flat=True).distinct()
+    return render(request,  'products/home.html', {
+                                                   'products': products,
+                                                   'categories': categories
+                                            
+                                                    })
+
+def product_detailed_view(request, product_id):
+    product = get_object_or_404(ProductListings, id=product_id)
+    
+
+    return render(request, 'products/product_detail.html', {'product': product})
+
+@login_required(login_url='users:login')
+def seller_profile_view(request, seller_id):
+    seller_profile = get_object_or_404(SellerProfile, id=seller_id)
+
+    products = ProductListings.objects.filter(seller=seller_profile)
+
+    return render(request, 'products/seller_profile.html', {
+        'products':products,
+        'seller': seller_profile
+        
+        
+        })

@@ -15,6 +15,7 @@ class UserDetail(AbstractUser):
 class SellerProfile(models.Model):
     user = models.OneToOneField(UserDetail, on_delete=models.CASCADE, related_name='seller_profile')
     shop_name = models.CharField(max_length=50)
+    bio = models.TextField(blank=True, null=True)
     phone_number = models.CharField(max_length=15)
     is_staff = models.BooleanField(default=True)
     id_number = models.CharField(

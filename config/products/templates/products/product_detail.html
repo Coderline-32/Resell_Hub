@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kenuwn Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <nav class="bg-white shadow-sm py-4 px-4 md:px-6 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center flex-wrap">
+            <a href="{% url 'products:home' %}" class="flex items-center space-x-2">
+                <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2 2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                <span class="text-2xl font-bold text-gray-800">Kenuwn Hub</span>
+            </a>
+            <div class="flex items-center space-x-4 ml-auto">
+                <a href="{% if user.is_authenticated %}{% url 'users:profile' %}{% else %}{% url 'users:login' %}{% endif %}" class="text-gray-700 hover:text-emerald-600 font-medium flex items-center">
+                    <svg class="w-6 h-6 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    {% if user.is_authenticated %}Profile{% else %}Login{% endif %}
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 py-8 md:py-12">
+        <div class="bg-white rounded-lg shadow-xl overflow-hidden p-6 md:p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                <div class="flex-shrink-0">
+                    <img src="{{ product.image.url }}" alt="{{ product.title }}" class="w-full h-auto object-cover rounded-lg shadow-md transition-transform duration-300 hover:scale-105">
+                </div>
+
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">{{ product.title }}</h1>
+                    <p class="text-4xl font-bold text-emerald-600 mb-4">${{ product.price }}</p>
+
+                    <div class="mb-6 border-b border-gray-200 pb-4">
+                        <h2 class="text-xl font-semibold mb-2">Description</h2>
+                        <p class="text-gray-600 leading-relaxed whitespace-pre-wrap">{{ product.description }}</p>
+                    </div>
+
+                    <div class="mb-6 space-y-2">
+                        <div class="flex items-center text-gray-700">
+                            <svg class="w-5 h-5 mr-2 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5.657a2 2 0 011.414.586l7.707 7.707a2 2 0 010 2.828l-5.657 5.657a2 2 0 01-2.828 0l-7.707-7.707A2 2 0 013.586 7H3a.999.999 0 01-1-1v-2c0-.552.448-1 1-1h4a1 1 0 011 1z"></path></svg>
+                            <span class="font-medium">Category:</span> {{ product.category }}
+                        </div>
+                        <div class="flex items-center text-gray-700">
+                            <svg class="w-5 h-5 mr-2 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <span class="font-medium">Location:</span> {{ product.location }}
+                        </div>
+                        <div class="flex items-center text-gray-700">
+                            <svg class="w-5 h-5 mr-2 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h.01M11 15h.01M15 15h.01M17 11h.01M7 11h.01M12 6v1a1 1 0 001 1h4a1 1 0 011 1v7a1 1 0 01-1 1h-6a1 1 0 01-1-1V9a1 1 0 011-1h4a1 1 0 001-1V6M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            <span class="font-medium">Date Posted:</span> {{ product.created_at|date:"F j, Y" }}
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-100 p-4 rounded-lg flex items-center space-x-4 mb-6">
+                        <img src="{{ product.seller.profile_picture.url }}" alt="{{ product.seller.username }}" class="w-16 h-16 rounded-full object-cover border-2 border-emerald-500">
+                        <div>
+                            <p class="text-sm text-gray-500">Listed by:</p>
+                            <h3 class="text-lg font-bold text-gray-800">{{ product.seller.username }}</h3>
+                            <a href="{% url 'products:seller_profile' product.seller.id %}" class="text-sm text-emerald-600 hover:underline">View Seller Profile</a>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                        <button class="flex-1 bg-emerald-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-emerald-700 transition duration-300 transform hover:scale-105">
+                            <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                            Add to Cart
+                        </button>
+                        <button class="flex-1 border border-emerald-600 text-emerald-600 font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-emerald-50 transition duration-300 transform hover:scale-105">
+                            <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Contact Seller
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 py-8 px-4 md:px-6 mt-12 rounded-t-lg shadow-inner">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left space-y-4 md:space-y-0">
+            <div class="text-sm">
+                &copy; 2023 KenuwnHub All rights reserved.
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="hover:text-white transition-colors duration-200 text-sm">About Us</a>
+                <a href="#" class="hover:text-white transition-colors duration-200 text-sm">Contact</a>
+                <a href="#" class="hover:text-white transition-colors duration-200 text-sm">Terms of Service</a>
+                <a href="#" class="hover:text-white transition-colors duration-200 text-sm">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

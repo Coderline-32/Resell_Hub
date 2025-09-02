@@ -74,9 +74,10 @@ class SellerDetailview(generics.RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         return self.request.user.seller_profile
-def index_view(request):
     
-    return render(request, 'users/index.html')
+def about_us_view(request):
+    
+    return render(request, 'users/about_us.html')
 
 
 
@@ -132,7 +133,7 @@ def logout_view(request):
     Function which provides a way for users to logout after signing in
     """
     logout(request)
-    return redirect('users:index') # Take the users back to landing page after signing out
+    return redirect('products:home') # Take the users back to landing page after signing out
 
 @login_required
 def profile_view(request):

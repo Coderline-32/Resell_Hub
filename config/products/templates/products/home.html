@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="http://www.w3.org/2000/svg">
+
     <title>E-commerce Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -39,13 +41,17 @@
         }
         @media (min-width: 768px) {
             .bottom-nav {
-                display: none; /* Hide on desktop */
+
+                display: flex; /* Hide on desktop */
             }
             .list-item-floating-mobile {
                 display: none; /* Hide floating button on desktop */
             }
             .list-item-desktop {
                 display: block; /* Show desktop button on desktop */
+            }
+            body {
+                padding-bottom: 4rem; /* This line is the solution! */
             }
         }
 
@@ -102,8 +108,10 @@
                     Profile
                     </a>
                     {% else %}
+                    <a href="{% url 'users:login' %}">
                     <svg class="w-6 h-6 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                     Login
+                    </a>
                     {% endif %}
                 </button>
             </div>
@@ -132,12 +140,9 @@
                     <label for="category-filter" class="block text-gray-700 text-sm font-semibold mb-1">Category</label>
                     <select id="category-filter" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-300 focus:ring focus:ring-emerald-200 focus:ring-opacity-50 py-2 px-3 text-gray-800">
                         <option value="all">All Categories</option>
-                        <option value="electronics">Electronics</option>
-                        <option value="fashion">Fashion</option>
-                        <option value="home">Home & Garden</option>
-                        <option value="vehicles">Vehicles</option>
-                        <option value="books">Books</option>
-                        <option value="sports">Sports & Outdoors</option>
+                        {% for category in categories %}
+                            <option value="{{category}}">{{category}}</option>
+                        {% endfor %}
                     </select>
                 </div>
 
@@ -172,7 +177,7 @@
                          data-price="{{ product.price }}"
                          data-location="{{ product.location }}"
                          data-title="{{ product.title }}">
-                        <a href="#"> <img src="{{ product.image.url }}" alt="{{ product.title }}" class="w-full h-48 object-cover object-center">
+                        <a href="{% url 'products:product_detail' product.id%}"> <img src="{{ product.image.url }}" alt="{{ product.title }}" class="w-full h-48 object-cover object-center">
                             <div class="p-4">
                                 <h3 class="text-lg font-semibold text-gray-800 truncate mb-1">{{ product.title }}</h3>
                                 <p class="text-xl font-bold text-emerald-600 mb-2">${{ product.price }}</p>
@@ -228,7 +233,13 @@
         {% endif %}
         <a href="{% url 'users:profile' %}" class="flex flex-col items-center text-gray-700 hover:text-emerald-600 transition-colors duration-200">
             <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-            <span class="text-xs font-medium">Profile</span>
+            <span class="text-xs font-medium">
+                {% if user.is_authenticated %}
+                Profile
+                {% else %}
+                Login
+                {% endif %}
+            </span>
         </a>
     </nav>
 
@@ -238,7 +249,7 @@
                 &copy; 2023 KenuwnHub All rights reserved.
             </div>
             <div class="flex space-x-6">
-                <a href="#" class="hover:text-white transition-colors duration-200 text-sm">About Us</a>
+                <a href="{% url 'users:about_us' %}" class="hover:text-white transition-colors duration-200 text-sm">About Us</a>
                 <a href="#" class="hover:text-white transition-colors duration-200 text-sm">Contact</a>
                 <a href="#" class="hover:text-white transition-colors duration-200 text-sm">Terms of Service</a>
                 <a href="#" class="hover:text-white transition-colors duration-200 text-sm">Privacy Policy</a>

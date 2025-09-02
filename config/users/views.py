@@ -13,17 +13,21 @@ from django.http import JsonResponse
 from django.views import View
 
 
-# Create your views here.
+# -------------------- API Views --------------------
+
+# API endpoint for user registration
 class UserRegisterView(generics.CreateAPIView):
     queryset = UserDetail.objects.all()
     serializer_class = UserRegisterSerializer
 
 
+# API endpoint for user login (using Django sessions)
 class UserLoginView(View):
     def post(self, request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
+        # Authenticate user against DB
         user = authenticate(request, username=username, password=password)
 
         if user:
@@ -34,53 +38,62 @@ class UserLoginView(View):
             return JsonResponse({"error": "Invalid credentials"}, status=401)
 
 
+# API endpoint for user logout
 class UserLogoutView(View) :
     def post(self, request):
         logout(request) 
         return JsonResponse({"message": "Logout successful"}, status=200)
 
 
-
+# API endpoint to list all users (admin only)
 class UserListView(generics.ListAPIView):
     queryset = UserDetail.objects.all()
     serializer_class = UserDetailSerializer
     permission_classes = [permissions.IsAdminUser]
 
+# API endpoint to retrieve/update/delete the logged-in user
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = UserDetail.objects.all()
     serializer_class = UserDetailSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
-        # Only allow users to access their info
+        # Only allow users to access their own info
 
         return self.request.user
+
+# API endpoint to register a seller (requires login)
 class SellerRegisterView(generics.CreateAPIView):
     queryset = SellerProfile.objects.all()
     serializer_class = SellerRegisterSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    
+# API endpoint to list all sellers (admin only)
 class SellerListView(generics.ListAPIView):
     # Only allow users to access their info
     queryset = SellerProfile.objects.all()
     serializer_class = SellerDetailSerializer
     permission_classes = [permissions.IsAdminUser]
 
-class SellerDetailview(generics.RetrieveUpdateDestroyAPIView):
-    queryset = SellerProfile.objects.all()
+# API endpoint to allow sellers  retrieve/update/delete their details 
+class SellerDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = SellerDetailSerializer
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
         return self.request.user.seller_profile
-    
+
+
+
+# -------------------- Template Views (Frontend Pages) --------------------
+
+# "About Us" page
 def about_us_view(request):
     
     return render(request, 'users/about_us.html')
 
 
-
+# User registration form (HTML)
 def register(request):
     """
     Handles user registration
@@ -101,6 +114,7 @@ def register(request):
     
     return render(request, 'users/signup.html', {'form': form})
 
+# User login form (HTML)
 def login_view(request):
     """
     Handles User login request
@@ -130,20 +144,23 @@ def login_view(request):
 @login_required # Ensures that for a user to logout they must have logged in prior
 def logout_view(request):
     """
-    Function which provides a way for users to logout after signing in
+    Logs out user and redirects to homepage.
     """
     logout(request)
     return redirect('products:home') # Take the users back to landing page after signing out
 
+# User profile page (HTML)
 @login_required
 def profile_view(request):
     return render(request, 'users/profile.html')
 
 
+# Seller registration (HTML)
 @login_required
 def register_seller(request):
     """
-    Handle seller registration 
+    Handles seller registration (profile creation).
+    Prevents users from registering twice.
     """
     if hasattr(request.user, "seller_profile" ):
         return redirect('users:seller_dashboard')
@@ -160,12 +177,12 @@ def register_seller(request):
     
     return render(request, 'users/register_seller.html', {'form':form} )
 
-@login_required
 
+@login_required
 def update_profile(request):
 
     """
-    Allow users to update their profiles
+    Allow logged-in users to update their profiles
     """
     
     if request.method =='POST':

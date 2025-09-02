@@ -10,7 +10,7 @@ Admin dashboard
 Seller dashboard
 Customers/users dashboard
 Landing page
-Whatsap linking
+Email Linking
 Messaging btn seller and buyer
 API for mobile app intergration
 
@@ -22,6 +22,27 @@ Bootstrap
 
 # Installation
 clone repo
+`` bash 
+git clone https://github.com/Coderline-32/Resell_Hub
+cd Resell_Hub
+python -m venv env
+.\env\Scripts\activate
+pip install -r requirements.txt
+cd config
+python manage.py migrate
+python manage.py runserver
+
+# Usage for new user
+Copy runserver url and paste in browser
+This will take you to home
+click sign up button to create account in signup page
+After signing up you will be redirected to homepage but as user with profile
+Open Profile and register as seller 
+After seller registration you will be able to start creating products
+Create Products in create products page, manage and customize them
+
+
+
 
 # Created:
 # Login:
@@ -35,7 +56,28 @@ Used Django authentication system
 # Log out
 To switch out of their accounts
 
-# index page
-Landing page for first time visitors
 # home page
-Redirection page for loggedin or signed in users
+Page to list products for buyers, with option of signing in for first time users
+
+# Profile page
+Contain profile info with button to register as seller
+
+# Register seller page
+For seller registration
+
+# Seller_dashboard page
+Allow sellers to list, manage and delete products
+
+# Create Product page
+Allow sellers to create products
+
+
+# Product detail page
+Shows product details including name of seler and contact details
+
+# Seller Profile page
+Show all seller products listings
+
+# API endpoints
+
+

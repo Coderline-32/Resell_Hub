@@ -32,11 +32,4 @@ class MyProductsSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'created_at']
 
     
-    def create(self, validated_data):
-        # The 'seller' data is passed in the validated_data
-        # We extract it and then pass the rest of the data separately
-        seller = validated_data.pop('seller') 
-        
-        # Now, create the ProductListings instance, ensuring 'seller' is only passed once
-        product = ProductListings.objects.create(seller=seller, **validated_data)
-        return product
+    

@@ -88,7 +88,7 @@ Request Body:
         "username": "Ke",
         "password" : "1234"
     }
-    
+
 Response:
 
     {
@@ -194,24 +194,7 @@ Response:
         "image": "http://127.0.0.1:8000/media/profile/pexels-steve-923192.jpg"
     },
     
-    {
-        "username": "Zambo",
-        "id": 9,
-        "email": "Zamb@gmail.com",
-        "date_joined": "2025-09-02T17:55:45.646406Z",
-        "full_name": null,
-        "location": null,
-        "image": null
-    },
-    {
-        "username": "col",
-        "id": 10,
-        "email": "c@gmail.com",
-        "date_joined": "2025-09-03T02:16:50.178812Z",
-        "full_name": null,
-        "location": null,
-        "image": null
-    }
+    
 
 GET SELLERS DETAILS(ADMIN_ONLY)
 GET: /sellers/details/
@@ -313,8 +296,8 @@ Request Body:
         "price": 60,
         "image": "http://127.0.0.1:8000/media/products/pexels-laurix-2375033.jpg",
         "location": "Juja",
-        "category_name": "Furnitures",
-        "created_at": "2025-08-31T11:53:41.441863Z"
+        "category": "3",
+        
     },
     {
         "id": 8,
@@ -323,8 +306,8 @@ Request Body:
         "price": 150,
         "image": "http://127.0.0.1:8000/media/products/pexels-k15-photos-233269-744366.jpg",
         "location": "Ruiru",
-        "category_name": "Electronics",
-        "created_at": "2025-08-31T11:53:41.441863Z"
+        "category": "2",
+        
     }
 
 Response:

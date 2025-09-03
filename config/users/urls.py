@@ -36,7 +36,7 @@ urlpatterns = [
     path('api/sellers/details/', SellerListView.as_view(), name="seller_details"),
 
     # Get seller profile details (API)
-    path('api/seller/profile', SellerDetailView.as_view(), name='seller_profile'),
+    path('api/seller/profile/', SellerDetailView.as_view(), name='seller_profile'),
 
 
 

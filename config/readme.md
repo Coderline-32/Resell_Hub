@@ -83,27 +83,34 @@ Base URL: http://127.0.0.1:8000/api/
 Authentication
 POST: /token/
 Request Body:
+
     {
-        "username": "Ke"
+        "username": "Ke",
         "password" : "1234"
     }
+    
 Response:
+
     {
-        "refresh": "<refresh token>"
+        "refresh": "<refresh token>",
         "access": "<acces token>"
     }
 
 LOGOUT
 POST: /user/logout/
-Request Body
+Request Body:
+
     {
         "refresh_token": "<refresh token>"
     }
+
 Headers:
+
     Authorization: Bearer <access_token>
     Content-Type: application/json
 
  Response:
+
     {
         "message" : "Logout Successful"
     }
@@ -111,13 +118,16 @@ Headers:
 REGISTER  
 POST: /user/register/  
 Request Body:
+
     {
         "username": "col",
         "email": "c@gmail.com",
         "password": "Q1234567890p,",
         "password2": "Q1234567890p,"
     }
+
 Response:
+
     {
         "id": 1,
         "username": "col",
@@ -127,9 +137,11 @@ Response:
 GET USER INFO
 GET: /use/profile/
 Headers:
+
     Authorization: Bearer <access_token>
 
 Response:
+
     {
         "username":"col",
         "email":"c@gmail.com"
@@ -142,9 +154,11 @@ Response:
 GET SELLER INFO
 GET: /seller/profile/
 Headers:
+
     Authorization: Bearer <access_token>
 
 Response:
+
     {
         "shopname":"co",
         "id_number":"12364757757"
@@ -156,9 +170,11 @@ Response:
 GET USERS DETAILS(ADMIN_ONLY)
 GET: /users/details/
 Headers:
+
     Authorization: Bearer <access_token>
 
 Response:
+
      {
         "username": "Sam",
         "id": 1,
@@ -200,9 +216,11 @@ Response:
 GET SELLERS DETAILS(ADMIN_ONLY)
 GET: /sellers/details/
 Headers:
+
     Authorization: Bearer <access_token>
 
 Response:
+
     {
         "shop_name": "Kenuwn",
         "phone_number": "0714567987",
@@ -220,8 +238,11 @@ Response:
 GENERAL PRODUCTS ACCESS
 GET: /products/
 Headers:
+
     Authorization: Bearer <access_token>
+
 Response:
+
     {
         "id": 14,
         "title": "Drone",
@@ -260,8 +281,11 @@ Response:
 SPECIFIC PRODUCT ACCESS
 GET: /product/detail/<int:7>/
 Headers:
+
     Authorization: Bearer <access_token>
+
 Response:
+
     {
         "id": 7,
         "title": "bed",
@@ -277,9 +301,11 @@ Response:
 SELLER PRODUCTS ACCESS
 GET/POST: /seller/products/
 Headers:
+
     Authorization: Bearer <access_token>
 
 Request Body:
+
      {
         "id": 7,
         "title": "bed",

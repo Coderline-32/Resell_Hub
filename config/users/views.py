@@ -15,6 +15,10 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
 from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken, OutstandingToken
 from rest_framework.views import APIView
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework import serializers
+
+
 
 
 # -------------------- API Views --------------------
@@ -97,6 +101,13 @@ class SellerRegisterView(generics.CreateAPIView):
     queryset = SellerProfile.objects.all()
     serializer_class = SellerRegisterSerializer
     permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [JWTAuthentication]  
+
+    def perform_create(self, serializer):
+        if SellerProfile.objects.filter(user=self.request.user).exists():
+            raise serializers.ValidationError("Seller profile already exists for this user")
+        serializer.save(user=self.request.user)
+
 
 # API endpoint to list all sellers (admin only)
 class SellerListView(generics.ListAPIView):

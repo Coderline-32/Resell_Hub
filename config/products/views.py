@@ -68,6 +68,7 @@ class MyProductsDetailView(generics.RetrieveUpdateDestroyAPIView):
         return product_detail
     
     
+    
         
 
 # ------------------ Template Views ------------------

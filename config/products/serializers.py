@@ -16,16 +16,27 @@ class ProductsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductListings
         fields = ['id', 'title', 'description', 'price', 'image', 'location', 'category_name', 'seller', 'created_at' ]
-        
+
         # These fields cannot be changed directly via API
         read_only_fields = ['id', 'seller', 'created_at']
 
 # Serializer for seller’s own products (no seller field exposed)
 class MyProductsSerializer(serializers.ModelSerializer):
-     # Get category name from related Category model
-    category_name = serializers.CharField(source="category.name", default=None)
+    # SlugRElated allows for display user category name on get methods and accepts write
+    category = serializers.PrimaryKeyRelatedField (queryset=Category.objects.all())
+        
 
     class Meta:
         model = ProductListings
-        fields = ['id', 'title', 'description', 'price', 'image', 'location', 'category_name',  'created_at' ]
+        fields = ['id', 'title', 'description', 'price', 'image', 'location', 'category', 'created_at', ]
         read_only_fields = ['id', 'created_at']
+
+    
+    def create(self, validated_data):
+        # The 'seller' data is passed in the validated_data
+        # We extract it and then pass the rest of the data separately
+        seller = validated_data.pop('seller') 
+        
+        # Now, create the ProductListings instance, ensuring 'seller' is only passed once
+        product = ProductListings.objects.create(seller=seller, **validated_data)
+        return product

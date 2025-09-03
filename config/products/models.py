@@ -15,7 +15,7 @@ class ProductListings(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField()
     price = models.IntegerField()
-    image = models.ImageField(upload_to='products/') # stored under /media/products/
+    image = models.ImageField(upload_to='products/', blank=True, null=True) # stored under /media/products/
     location = models.CharField(max_length=100)
     seller = models.ForeignKey(SellerProfile, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='product', blank=True, null=True) # 'related_name' allows reverse lookup: category.product.all()

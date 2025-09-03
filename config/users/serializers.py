@@ -56,9 +56,13 @@ class SellerDetailSerializer(serializers.ModelSerializer):
 
 # Serializer for registering seller profiles
 class SellerRegisterSerializer(serializers.ModelSerializer):
+    
     class Meta:
               
         model = SellerProfile
-        fields = ['id', 'shop_name', 'phone_number', 'id_number', 'location' ]
-        read_only_fields = ['id']
+        fields = ['shop_name', 'id_number', 'phone_number', 'location' ]
+    
+
+    
+        
 

@@ -18,6 +18,9 @@ urlpatterns = [
     path('api/seller/product/detail/<int:pk>/', MyProductsDetailView.as_view(), name='seller_product_detail'),
     # View, update, or delete a seller’s specific product
 
+
+    
+
     # --------- Template Views ---------
     path('seller_profile/<int:seller_id>', seller_profile_view, name='seller_profile'),
     # Public page showing seller profile and their products

@@ -6,6 +6,8 @@ from .models import ProductListings
 from .permissions import IsSellerOrReadOnly
 from .serializers import ProductsSerializer, CategorySerializer, MyProductsSerializer
 from rest_framework import generics, filters, permissions
+from rest_framework.exceptions import PermissionDenied
+
 
 
 
@@ -47,8 +49,10 @@ class MyProductsView(generics.ListCreateAPIView):
 
     # Return only products belonging to logged-in seller
     def get_queryset(self):
-        seller_data = ProductListings.objects.filter(seller=self.request.user.seller_profile)
-        return seller_data
+        user = self.request.user
+        if not hasattr(user, 'seller_profile'):
+            raise PermissionDenied("You are not a seller")
+        return ProductListings.objects.filter(seller=user.seller_profile)
     
      # When creating product, assign seller automatically
     def perform_create(self, serializer):

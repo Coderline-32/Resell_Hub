@@ -8,9 +8,13 @@ from .models import UserDetail, SellerProfile
 from rest_framework import generics, permissions, response, status
 from .serializers import UserDetailSerializer, SellerDetailSerializer, UserRegisterSerializer, SellerRegisterSerializer
 from rest_framework.generics import GenericAPIView
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 from django.http import JsonResponse
 from django.views import View
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.response import Response
+from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken, OutstandingToken
+from rest_framework.views import APIView
 
 
 # -------------------- API Views --------------------
@@ -31,19 +35,45 @@ class UserLoginView(View):
         user = authenticate(request, username=username, password=password)
 
         if user:
-            login(request,user)
-            return JsonResponse({"message": "Login successful"}, status=200)
+            # Generate JWT tokens
+            refresh = RefreshToken.for_user(user)
+
+            # Return Tokkens in response
+            return Response({
+                'refresh': str(refresh),
+                'access' : str(refresh.access_token)
+
+            }, status=status.HTTP_200_OK)
                 
         else:
             return JsonResponse({"error": "Invalid credentials"}, status=401)
 
 
 # API endpoint for user logout
-class UserLogoutView(View) :
-    def post(self, request):
-        logout(request) 
-        return JsonResponse({"message": "Logout successful"}, status=200)
+class UserLogoutView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
 
+    def post(self, request):
+        refresh_token = request.data.get("refresh_token")
+
+        if not refresh_token:
+            return Response(
+                {"error": "refresh_token is required"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response(
+                {"message": "Logout successful"},
+                status=status.HTTP_205_RESET_CONTENT
+            )
+        except TokenError as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
 # API endpoint to list all users (admin only)
 class UserListView(generics.ListAPIView):
